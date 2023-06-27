@@ -21,7 +21,7 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     public Order salvarPedido(Order order) {
-        if(validateCpf(order.getClientCpf())){
+        if(!validateCpf(order.getClientCpf())){
             throw new OrderException("Cpf is invalid");
         }
 
