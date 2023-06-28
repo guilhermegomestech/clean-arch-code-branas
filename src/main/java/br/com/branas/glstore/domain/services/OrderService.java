@@ -1,5 +1,6 @@
 package br.com.branas.glstore.domain.services;
 
+import br.com.branas.glstore.domain.entities.DiscountCoupon;
 import br.com.branas.glstore.domain.entities.Order;
 import br.com.branas.glstore.domain.entities.Product;
 import br.com.branas.glstore.exceptions.OrderException;
@@ -11,14 +12,21 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.Integer.parseInt;
 
 @Service
 public class OrderService {
 
-    @Autowired
     private OrderRepository orderRepository;
+    private DiscountCouponService discountCouponService;
+
+    @Autowired
+    public OrderService(OrderRepository orderRepository, DiscountCouponService discountCouponService){
+        this.orderRepository = orderRepository;
+        this.discountCouponService = discountCouponService;
+    }
 
     public Order salvarPedido(Order order) {
         if(!validateCpf(order.getClientCpf())){
@@ -28,8 +36,12 @@ public class OrderService {
         order.setQuantity(order.getListProducts().size());
         order.setOrderGrossValue(order.getListProducts().stream().map(Product::getProductPrice).reduce(BigDecimal.ZERO, BigDecimal::add));
 
-        if(order.isExistsCoupon()){
-            order.setOrderGrossValue(calcularDescontoPedido(order.getOrderGrossValue(), order.getDiscountPercentage()));
+        if(Objects.nonNull(order.getDiscountCoupon())){
+            boolean isCouponValid = discountCouponService.checkCouponIsValid(order.getDiscountCoupon());
+            if(isCouponValid){
+                order.setOrderGrossValue(calcularDescontoPedido(order.getOrderGrossValue(), order.getDiscountCoupon().getDiscountPercentage()));
+            }
+
         }
         return this.orderRepository.save(order);
     }
