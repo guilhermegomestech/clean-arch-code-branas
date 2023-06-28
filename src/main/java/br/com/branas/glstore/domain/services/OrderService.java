@@ -34,6 +34,10 @@ public class OrderService {
         }
 
         order.setQuantity(order.getListProducts().size());
+        if(isQuantityProductsIsNegative(order.getQuantity())){
+            throw new OrderException("Products quantity can't is negative");
+        }
+
         order.setOrderGrossValue(order.getListProducts().stream().map(Product::getProductPrice).reduce(BigDecimal.ZERO, BigDecimal::add));
 
         if(Objects.nonNull(order.getDiscountCoupon())){
@@ -53,6 +57,12 @@ public class OrderService {
     public BigDecimal calcularDescontoPedido(BigDecimal valorTotalPedido, BigDecimal valorDesconto) {
         return valorTotalPedido.subtract(valorTotalPedido.multiply(valorDesconto).divide(new BigDecimal(100)));
     }
+
+    public boolean isQuantityProductsIsNegative(Integer quantityProducts){
+        return quantityProducts < 0;
+    }
+
+    //TODO: MOVE NEXT METHODS FOR OTHER CLASS
 
     public boolean validateCpf(String cpf) {
         cpf = removeNonDigits(cpf);

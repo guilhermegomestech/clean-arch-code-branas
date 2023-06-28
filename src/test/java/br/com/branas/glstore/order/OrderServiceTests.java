@@ -1,5 +1,6 @@
 package br.com.branas.glstore.order;
 
+import br.com.branas.glstore.domain.entities.Order;
 import br.com.branas.glstore.domain.services.OrderService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,11 +17,16 @@ public class OrderServiceTests {
     @InjectMocks
     private OrderService orderService;
     @Test
-    public void testCpfInvalid() throws Exception {
+    public void testCpfInvalid() {
         assertFalse(orderService.validateCpf("000.531.410-50"));
     }
     @Test
     public void testCpfValid() {
         assertTrue(orderService.validateCpf("407.302.170-27"));
+    }
+
+    @Test
+    public void testOrderIsNotNegative(){
+        assertTrue(orderService.isQuantityProductsIsNegative(-1));
     }
 }
