@@ -1,4 +1,4 @@
-package br.com.branas.glstore.coupon;
+package br.com.branas.glstore.services;
 
 import br.com.branas.glstore.domain.entities.DiscountCoupon;
 import br.com.branas.glstore.domain.services.DiscountCouponService;

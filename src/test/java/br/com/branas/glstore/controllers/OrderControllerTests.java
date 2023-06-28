@@ -1,4 +1,4 @@
-package br.com.branas.glstore.order;
+package br.com.branas.glstore.controllers;
 
 import br.com.branas.glstore.domain.entities.DiscountCoupon;
 import br.com.branas.glstore.domain.entities.Order;

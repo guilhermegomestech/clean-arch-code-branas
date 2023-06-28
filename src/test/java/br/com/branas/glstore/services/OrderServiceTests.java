@@ -1,4 +1,4 @@
-package br.com.branas.glstore.order;
+package br.com.branas.glstore.services;
 
 import br.com.branas.glstore.domain.services.OrderService;
 import org.junit.jupiter.api.Test;
