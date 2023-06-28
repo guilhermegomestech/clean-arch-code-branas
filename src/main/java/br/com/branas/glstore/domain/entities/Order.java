@@ -24,9 +24,9 @@ public class Order {
     private BigDecimal orderGrossValue;
     private Integer quantity;
 
-    private BigDecimal discountPercentage;
-    @Transient
-    private boolean existsCoupon;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private DiscountCoupon discountCoupon;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Product> listProducts;
@@ -84,20 +84,12 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public BigDecimal getDiscountPercentage() {
-        return discountPercentage;
+    public DiscountCoupon getDiscountCoupon() {
+        return discountCoupon;
     }
 
-    public void setDiscountPercentage(BigDecimal discountPercentage) {
-        this.discountPercentage = discountPercentage;
-    }
-
-    public boolean isExistsCoupon() {
-        return existsCoupon;
-    }
-
-    public void setExistsCoupon(boolean existsCoupon) {
-        this.existsCoupon = existsCoupon;
+    public void setDiscountCoupon(DiscountCoupon discountCoupon) {
+        this.discountCoupon = discountCoupon;
     }
 
     public List<Product> getListProducts() {
