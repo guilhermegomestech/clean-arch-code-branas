@@ -21,10 +21,12 @@ public class OrderService {
 
     private OrderRepository orderRepository;
     private DiscountCouponService discountCouponService;
+    private ProductService productService;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, DiscountCouponService discountCouponService){
+    public OrderService(OrderRepository orderRepository, ProductService productService, DiscountCouponService discountCouponService){
         this.orderRepository = orderRepository;
+        this.productService = productService;
         this.discountCouponService = discountCouponService;
     }
 
@@ -36,6 +38,10 @@ public class OrderService {
         order.setQuantity(order.getListProducts().size());
         if(isQuantityProductsIsNegative(order.getQuantity())){
             throw new OrderException("Products quantity can't is negative");
+        }
+
+        if(productService.productsNotCanRepeat(order.getListProducts())){
+            throw new OrderException("The products list can't contain repeated elements.");
         }
 
         order.setOrderGrossValue(order.getListProducts().stream().map(Product::getProductPrice).reduce(BigDecimal.ZERO, BigDecimal::add));

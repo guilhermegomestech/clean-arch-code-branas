@@ -15,6 +15,14 @@ public class Product {
     private String productDescription;
     private BigDecimal productPrice;
 
+    public Product() {
+    }
+
+    public Product(String productDescription, BigDecimal productPrice) {
+        this.productDescription = productDescription;
+        this.productPrice = productPrice;
+    }
+
     public String getProductDescription() {
         return productDescription;
     }
