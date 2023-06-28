@@ -16,14 +16,11 @@ public class OrderServiceTests {
     @InjectMocks
     private OrderService orderService;
     @Test
-    public void testarCpfInvalido() throws Exception {
+    public void testCpfInvalid() throws Exception {
         assertFalse(orderService.validateCpf("000.531.410-50"));
     }
     @Test
-    public void testarCpfValido() {
+    public void testCpfValid() {
         assertTrue(orderService.validateCpf("407.302.170-27"));
     }
-
-
-    //TODO: CRIAR TESTE VALIDACAO CUPOM
 }

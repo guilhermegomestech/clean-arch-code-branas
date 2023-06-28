@@ -1,5 +1,6 @@
 package br.com.branas.glstore.order;
 
+import br.com.branas.glstore.domain.entities.DiscountCoupon;
 import br.com.branas.glstore.domain.entities.Order;
 import br.com.branas.glstore.domain.entities.Product;
 import br.com.branas.glstore.domain.services.OrderService;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -59,8 +61,8 @@ public class OrderControllerTests {
         order.setClientName("Maria Silva");
         order.setAddressClient("Rua Vinho, 72 - Oliveira");
         order.setClientCpf("407.302.170-27");
-        order.setDiscountPercentage(new BigDecimal(10));
-        order.setExistsCoupon(true);
+        DiscountCoupon coupon = new DiscountCoupon("COUP_10", new BigDecimal(10), LocalDate.now());
+        order.setDiscountCoupon(coupon);
         Product one = new Product();
         one.setProductDescription("Batedeira");
         one.setProductPrice(new BigDecimal(250));
@@ -90,8 +92,8 @@ public class OrderControllerTests {
         order.setClientName("Maria Silva");
         order.setAddressClient("Rua Vinho, 72 - Oliveira");
         order.setClientCpf("000.531.410-50");
-        order.setDiscountPercentage(new BigDecimal(10));
-        order.setExistsCoupon(true);
+        DiscountCoupon coupon = new DiscountCoupon("COUP_10", new BigDecimal(10), LocalDate.now());
+        order.setDiscountCoupon(coupon);
         Product one = new Product();
         one.setProductDescription("Batedeira");
         one.setProductPrice(new BigDecimal(250));
