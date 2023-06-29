@@ -44,8 +44,7 @@ jobs:
             
             const branchNames = response.data.map(branch => branch.name);
             console.log("Branches: ", branchNames);
-            const branchFilters = branchNames.map(name => !name.includes("main") && !name.includes("develop"));
-            echo "::set-output name=branch_name::${{ branchFilter }}";
+            echo "::set-output name=branch_name::${{ branchNames.map(name => !name.includes("main") && !name.includes("develop")) }}";
             
       - name: Opening pull request
         id: pull
