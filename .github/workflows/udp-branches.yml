@@ -46,7 +46,7 @@ jobs:
       - name: Filtrar branches indesejadas
         id: filtered-branches
         run: |
-              branches_to_remove="main develop" # Adicione aqui as branches que você deseja remover
+          branches_to_remove="main develop" # Adicione aqui as branches que você deseja remover
               IFS=$'\n' read -d '' -ra branches_array <<< "${{ steps.branches.outputs.branches }}"
               filtered_branches=()
               for branch in "${branches_array[@]}"; do
@@ -61,7 +61,8 @@ jobs:
                   filtered_branches+=("$branch")
                 fi
               done
-              echo "::set-output name=filtered_branches::${filtered_branches[*]}"
+              filtered_branches_str=$(IFS=,; echo "${filtered_branches[*]}")
+              echo "::set-output name=filtered_branches::${filtered_branches_str}"
 
       - name: Remover branches filtradas
         run: |
