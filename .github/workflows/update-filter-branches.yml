@@ -43,26 +43,34 @@ jobs:
             const branchNames = response.data.map(branch => branch.name);
             console.log("Branches: ", branchNames);
             return branchNames;
+            
       - name: Filtrar branches indesejadas
         id: filtered-branches
         run: |
           branches_to_remove="main develop" # Adicione aqui as branches que você deseja remover
-              IFS=$'\n' read -d '' -ra branches_array <<< "${{ steps.branches.outputs.branches }}"
-              filtered_branches=()
-              for branch in "${branches_array[@]}"; do
-                skip=false
-                for branch_to_remove in $branches_to_remove; do
-                  if [[ "$branch" == "$branch_to_remove" ]]; then
-                    skip=true
-                    break
-                  fi
-                done
-                if [[ $skip == false ]]; then
-                  filtered_branches+=("$branch")
-                fi
-              done
-              filtered_branches_str=$(IFS=,; echo "${filtered_branches[*]}")
-              echo "::set-output name=filtered_branches::${filtered_branches_str}"
+
+          # Obter todas as branches
+          branches=$(git branch -r | sed 's/^[[:space:]]*origin\///')
+
+          # Converter em array
+          IFS=$'\n' read -d '' -ra branches_array <<< "$branches"
+
+          filtered_branches=()
+          for branch in "${branches_array[@]}"; do
+            skip=false
+            for branch_to_remove in $branches_to_remove; do
+              if [[ "$branch" == "$branch_to_remove" ]]; then
+                skip=true
+                break
+              fi
+            done
+            if [[ $skip == false ]]; then
+              filtered_branches+=("$branch")
+            fi
+          done
+
+          filtered_branches_str=$(IFS=,; echo "${filtered_branches[*]}")
+          echo "::set-output name=filtered_branches::${filtered_branches_str}"
 
       - name: Remover branches filtradas
         run: |
