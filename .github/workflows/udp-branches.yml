@@ -29,5 +29,5 @@ jobs:
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: 'main'
-          TO_BRANCH: $branch_name
+          TO_BRANCH: ${GITHUB_REF#refs/heads/}
 
