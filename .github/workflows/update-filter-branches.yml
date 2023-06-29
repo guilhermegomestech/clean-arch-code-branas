@@ -48,7 +48,7 @@ jobs:
         id: filtered-branches
         run: |
           # Adicione aqui as branches que você deseja remover
-          const branches_to_remove="main develop"
+          branches_to_remove="main develop"
 
           # Obter todas as branches
           branches=$(git branch -r | sed 's/^[[:space:]]*origin\///')
