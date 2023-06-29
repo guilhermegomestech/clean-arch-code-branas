@@ -35,17 +35,41 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const octokit = context.github;
-
-            const response = await octokit.rest.repos.listBranches({
+            const response = await github.repos.listBranches({
               owner: context.repo.owner,
               repo: context.repo.repo
             });
-            
+
             const branchNames = response.data.map(branch => branch.name);
             console.log("Branches: ", branchNames);
-            echo "::set-output name=branch_name::${{ response.data.map(branch => branch.name).map(name => !name.includes("main") && !name.includes("develop")) }}";
-            
+            return branchNames;
+      - name: Filtrar branches indesejadas
+        id: filtered-branches
+        run: |
+          branches_to_remove="main develop" # Adicione aqui as branches que você deseja remover
+          IFS=$'\n' read -d '' -ra branches_array <<< "${{ steps.branches.outputs.result }}"
+          filtered_branches=()
+          for branch in "${branches_array[@]}"; do
+            skip=false
+            for branch_to_remove in $branches_to_remove; do
+              if [[ "$branch" == "$branch_to_remove" ]]; then
+                skip=true
+                break
+              fi
+            done
+            if [[ $skip == false ]]; then
+              filtered_branches+=("$branch")
+            fi
+          done
+          echo "::set-output name=filtered_branches::${filtered_branches[*]}"
+
+      - name: Remover branches filtradas
+        run: |
+          filtered_branches=(${{ steps.filtered-branches.outputs.filtered_branches }})
+          for branch in "${filtered_branches[@]}"; do
+            echo "Removendo branch: $branch"
+            # Execute as ações necessárias com cada branch filtrada
+          done
       - name: Opening pull request
         id: pull
         uses: tretuna/sync-branches@1.2.0
