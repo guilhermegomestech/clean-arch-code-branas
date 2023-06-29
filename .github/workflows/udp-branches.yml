@@ -1,21 +1,26 @@
-name: Update Branch
+name: Sync Back to Develop
 
 on:
-  pull_request:
-    types: 
-      - closed
-    branches: 
-      - develop
+  push:
+    branches:
+      - main
 
 jobs:
-  update-branches:
+  sync-branches:
     runs-on: ubuntu-latest
+    name: Syncing branches
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Update branches
-        uses: brainly/action-autoupdate-branch@2.0.0
-        id: autoUpdateBranch
+      - name: Set up Node
+        uses: actions/setup-node@v1
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          requiredApprovals: 1 #Number of required approvals before branch should be updated
+          node-version: 12
+      - name: Opening pull request
+        id: pull
+        uses: tretuna/sync-branches@1.2.0
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          FROM_BRANCH: 'main'
+          TO_BRANCH: 'develop'
+
