@@ -37,4 +37,17 @@ public class ProductsServiceTest {
 
         assertTrue(productService.productsNotCanRepeat(productList), "The products list not contains repeated elements.");
     }
+
+    @Test
+    public void testDimensionProductIsNegative(){
+        Product productOne = new Product();
+        productOne.setProductHeight(-100);
+        productOne.setProductWeight(-100);
+        productOne.setProductLength(-100);
+        productOne.setProductWidth(-100);
+
+        assertTrue(productService.productHaveInvalidDimension(productOne), "The dimension is valid");
+    }
+
+
 }

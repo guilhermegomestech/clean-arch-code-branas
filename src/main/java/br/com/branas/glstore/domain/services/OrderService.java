@@ -44,6 +44,11 @@ public class OrderService {
             throw new OrderException("The products list can't contain repeated elements.");
         }
 
+        if(order.getListProducts().stream().anyMatch(product -> productService.productHaveInvalidDimension(product))){
+            //TODO: TO UPDATE IN ORDER TO RETURN THE SPECIFIC PRODUCT
+            throw new OrderException("The product dimension is invalid.");
+        }
+
         order.setOrderGrossValue(order.getListProducts().stream().map(Product::getProductPrice).reduce(BigDecimal.ZERO, BigDecimal::add));
 
         if(Objects.nonNull(order.getDiscountCoupon())){

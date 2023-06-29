@@ -14,6 +14,10 @@ public class Product {
 
     private String productDescription;
     private BigDecimal productPrice;
+    private Integer productWidth;
+    private Integer productHeight;
+    private Integer productLength;
+    private Integer productWeight;
 
     public Product() {
     }
@@ -37,5 +41,37 @@ public class Product {
 
     public void setProductPrice(BigDecimal precoProduto) {
         this.productPrice = precoProduto;
+    }
+
+    public Integer getProductWidth() {
+        return productWidth;
+    }
+
+    public void setProductWidth(Integer productWidth) {
+        this.productWidth = productWidth;
+    }
+
+    public Integer getProductHeight() {
+        return productHeight;
+    }
+
+    public void setProductHeight(Integer productHeight) {
+        this.productHeight = productHeight;
+    }
+
+    public Integer getProductLength() {
+        return productLength;
+    }
+
+    public void setProductLength(Integer productLength) {
+        this.productLength = productLength;
+    }
+
+    public Integer getProductWeight() {
+        return productWeight;
+    }
+
+    public void setProductWeight(Integer productWeight) {
+        this.productWeight = productWeight;
     }
 }
