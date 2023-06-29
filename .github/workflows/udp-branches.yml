@@ -1,9 +1,11 @@
 name: Sync Back to Develop
 
 on:
-  push:
+  pull_request:
+    types: 
+      - closed
     branches:
-      - main
+      - develop
 
 jobs:
   sync-branches:
