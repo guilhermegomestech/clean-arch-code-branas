@@ -47,15 +47,9 @@ jobs:
       - name: Filtrar branches indesejadas
         id: filtered-branches
         run: |
-          # Adicione aqui as branches que você deseja remover
           branches_to_remove="main develop"
-
-          # Obter todas as branches
           branches=$(git branch -r | sed 's/^[[:space:]]*origin\///')
-
-          # Converter em array
           IFS=$'\n' read -d '' -ra branches_array <<< "$branches"
-
           filtered_branches=()
           for branch in "${branches_array[@]}"; do
             skip=false
@@ -69,7 +63,6 @@ jobs:
               filtered_branches+=("$branch")
             fi
           done
-
           filtered_branches_str=$(IFS=,; echo "${filtered_branches[*]}")
           echo "::set-output name=filtered_branches::${filtered_branches_str}"
 
