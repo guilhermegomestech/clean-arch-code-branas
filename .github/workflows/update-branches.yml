@@ -15,5 +15,6 @@ jobs:
 
       - name: Update branches
         run: |
-          git remote update
-          git fetch --all
+            git remote update
+            git fetch --all
+            git push --all origin
