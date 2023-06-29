@@ -41,11 +41,11 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             });
-
+            
             const branchNames = response.data.map(branch => branch.name);
             console.log("Branches: ", branchNames);
-            const branchFilter = response.data.map(name => !name.includes("main") && !name.includes("develop"));
-            echo "::set-output name=branch_name::${{ branchFilter }}"
+            const branchFilters = branchNames.map(name => !name.includes("main") && !name.includes("develop"));
+            echo "::set-output name=branch_name::${{ branchFilter }}";
             
       - name: Opening pull request
         id: pull
