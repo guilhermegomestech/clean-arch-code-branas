@@ -47,7 +47,8 @@ jobs:
       - name: Filtrar branches indesejadas
         id: filtered-branches
         run: |
-          branches_to_remove="main develop" # Adicione aqui as branches que você deseja remover
+          # Adicione aqui as branches que você deseja remover
+          const branches_to_remove="main develop"
 
           # Obter todas as branches
           branches=$(git branch -r | sed 's/^[[:space:]]*origin\///')
