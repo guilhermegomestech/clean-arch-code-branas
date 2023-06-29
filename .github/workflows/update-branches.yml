@@ -4,6 +4,8 @@ on:
   pull_request:
     types:
       - closed
+    branches:
+      - develop
 
 jobs:
   update-branches:
@@ -15,5 +17,6 @@ jobs:
 
       - name: Update branches
         run: |
-          git remote update
-          git fetch --all
+            git remote update
+            git fetch --all
+            git push --all origin

@@ -1,0 +1,83 @@
+name: Sync Back to Develop
+
+on:
+  pull_request:
+    types: 
+      - closed
+    branches:
+      - develop
+
+jobs:
+  sync-branches:
+    runs-on: ubuntu-latest
+    name: Syncing branches
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          
+      - name: Obter nome da branch do PR
+        run: |
+          pr_branch=${GITHUB_HEAD_REF}
+          echo "Branch do PR: $pr_branch"
+          
+      - name: Obter nome da branch
+        run: |
+          # Extrair apenas o nome da branch da variável GITHUB_REF
+          branch_name=${GITHUB_REF#refs/heads/}
+          echo "Branch corrente: $branch_name"
+          
+      - name: Obter todas as branches
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const response = await github.repos.listBranches({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            const branchNames = response.data.map(branch => branch.name);
+            console.log("Branches: ", branchNames);
+            return branchNames;
+            
+      - name: Filtrar branches indesejadas
+        id: filtered-branches
+        run: |
+          branches_to_remove="main develop"
+          branches=$(git branch -r | sed 's/^[[:space:]]*origin\///')
+          IFS=$'\n' read -d '' -ra branches_array <<< "$branches"
+          filtered_branches=()
+          for branch in "${branches_array[@]}"; do
+            skip=false
+            for branch_to_remove in $branches_to_remove; do
+              if [[ "$branch" == "$branch_to_remove" ]]; then
+                skip=true
+                break
+              fi
+            done
+            if [[ $skip == false ]]; then
+              filtered_branches+=("$branch")
+            fi
+          done
+          filtered_branches_str=$(IFS=,; echo "${filtered_branches[*]}")
+          echo "::set-output name=filtered_branches::${filtered_branches_str}"
+
+      - name: Remover branches filtradas
+        run: |
+          filtered_branches=(${{ steps.filtered-branches.outputs.filtered_branches }})
+          for branch in "${filtered_branches[@]}"; do
+            echo "Removendo branch: $branch"
+            # Execute as ações necessárias com cada branch filtrada
+          done
+      - name: Opening pull request
+        id: pull
+        uses: tretuna/sync-branches@1.2.0
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          FROM_BRANCH: 'main'
+          TO_BRANCH: ${{ steps.vars.outputs.branch_name }}
+
