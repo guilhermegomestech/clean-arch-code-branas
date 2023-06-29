@@ -18,6 +18,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: Obter nome da branch do PR
+        run: |
+          pr_branch=${GITHUB_HEAD_REF}
+          echo "Branch do PR: $pr_branch"
       - name: Obter nome da branch
         run: |
           # Extrair apenas o nome da branch da variável GITHUB_REF
@@ -29,5 +33,5 @@ jobs:
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: 'main'
-          TO_BRANCH: $branch_name
+          TO_BRANCH: ${GITHUB_HEAD_REF}
 
