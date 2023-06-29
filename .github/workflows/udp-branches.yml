@@ -18,20 +18,40 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+          
       - name: Obter nome da branch do PR
         run: |
           pr_branch=${GITHUB_HEAD_REF}
           echo "Branch do PR: $pr_branch"
+          
       - name: Obter nome da branch
         run: |
           # Extrair apenas o nome da branch da variável GITHUB_REF
           branch_name=${GITHUB_REF#refs/heads/}
           echo "Branch corrente: $branch_name"
+          
+      - name: Obter todas as branches
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const octokit = context.github;
+
+            const response = await octokit.rest.repos.listBranches({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            const branchNames = response.data.map(branch => branch.name);
+            console.log("Branches: ", branchNames);
+            const branchFilter = response.data.map(name => !name.includes("main") && !name.includes("develop"));
+            echo "::set-output name=branch_name::${{ branchFilter }}"
+            
       - name: Opening pull request
         id: pull
         uses: tretuna/sync-branches@1.2.0
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: 'main'
-          TO_BRANCH: ${GITHUB_HEAD_REF}
+          TO_BRANCH: ${{ steps.vars.outputs.branch_name }}
 
