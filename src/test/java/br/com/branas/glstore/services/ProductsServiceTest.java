@@ -42,12 +42,17 @@ public class ProductsServiceTest {
     public void testDimensionProductIsNegative(){
         Product productOne = new Product();
         productOne.setProductHeight(-100);
-        productOne.setProductWeight(-100);
         productOne.setProductLength(-100);
         productOne.setProductWidth(-100);
 
         assertTrue(productService.productHaveInvalidDimension(productOne), "The dimension is valid");
     }
 
+    @Test
+    public void testWeightProductIsNegative(){
+        Product productOne = new Product();
+        productOne.setProductWeight(-100.0);
 
+        assertTrue(Double.compare(productOne.getProductWeight(), 0) < 0, "The weight is valid");
+    }
 }

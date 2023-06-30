@@ -17,7 +17,7 @@ public class Product {
     private Integer productWidth;
     private Integer productHeight;
     private Integer productLength;
-    private Integer productWeight;
+    private Double productWeight;
 
     public Product() {
     }
@@ -67,11 +67,11 @@ public class Product {
         this.productLength = productLength;
     }
 
-    public Integer getProductWeight() {
+    public Double getProductWeight() {
         return productWeight;
     }
 
-    public void setProductWeight(Integer productWeight) {
+    public void setProductWeight(Double productWeight) {
         this.productWeight = productWeight;
     }
 }

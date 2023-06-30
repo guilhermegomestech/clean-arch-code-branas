@@ -49,6 +49,11 @@ public class OrderService {
             throw new OrderException("The product dimension is invalid.");
         }
 
+        if(order.getListProducts().stream().anyMatch(product -> productService.productHaveInvalidWeight(product))){
+            //TODO: TO UPDATE IN ORDER TO RETURN THE SPECIFIC PRODUCT
+            throw new OrderException("The product weight is invalid.");
+        }
+
         order.setOrderGrossValue(order.getListProducts().stream().map(Product::getProductPrice).reduce(BigDecimal.ZERO, BigDecimal::add));
 
         if(Objects.nonNull(order.getDiscountCoupon())){

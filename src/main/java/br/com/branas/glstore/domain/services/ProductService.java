@@ -14,10 +14,14 @@ public class ProductService {
     }
 
     public boolean productHaveInvalidDimension(Product product){
-        return validDimension(product.getProductHeight(), product.getProductLength(), product.getProductWeight(), product.getProductWidth());
+        return validDimension(product.getProductHeight(), product.getProductLength(), product.getProductWidth());
     }
 
     private boolean validDimension(Integer...dimensionArray){
         return Arrays.stream(dimensionArray).anyMatch(dimension -> dimension < 0);
+    }
+
+    public boolean productHaveInvalidWeight(Product product){
+        return Double.compare(product.getProductWeight(), 0) < 0;
     }
 }
