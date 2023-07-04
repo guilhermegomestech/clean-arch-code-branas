@@ -5,11 +5,13 @@ import br.com.branas.glstore.domain.entities.Order;
 import br.com.branas.glstore.domain.entities.Product;
 import br.com.branas.glstore.exceptions.OrderException;
 import br.com.branas.glstore.infrastructure.repositories.OrderRepository;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -19,6 +21,7 @@ import static java.lang.Integer.parseInt;
 @Service
 public class OrderService {
 
+    private static final String REGEX_ZIPCODE_VALIDATE = "^\\d{5}(-\\d{4})?$";
     private OrderRepository orderRepository;
     private DiscountCouponService discountCouponService;
     private ProductService productService;
@@ -61,7 +64,13 @@ public class OrderService {
             if(isCouponValid){
                 order.setOrderGrossValue(calcularDescontoPedido(order.getOrderGrossValue(), order.getDiscountCoupon().getDiscountPercentage()));
             }
+        }
 
+        if(validateZipCode(order.getZipCodeFrom()) || validateZipCode(order.getZipCodeTo())){
+            throw new OrderException("The ZIP code is invalid or not provided.");
+        } else {
+            order.setFreight(calculateFreight(order.getListProducts(), order.getQuantity()).setScale(2, RoundingMode.DOWN));
+            order.setOrderGrossValue(order.getOrderGrossValue().add(order.getFreight()).setScale(2, RoundingMode.DOWN));
         }
         return this.orderRepository.save(order);
     }
@@ -79,6 +88,11 @@ public class OrderService {
     }
 
     //TODO: MOVE NEXT METHODS FOR OTHER CLASS
+
+    private boolean validateZipCode(String zipCode){
+        return StringUtils.isEmpty(zipCode) || !zipCode.matches(REGEX_ZIPCODE_VALIDATE);
+    }
+
 
     public boolean validateCpf(String cpf) {
         cpf = removeNonDigits(cpf);
