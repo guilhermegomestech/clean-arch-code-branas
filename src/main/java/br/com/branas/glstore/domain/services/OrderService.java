@@ -38,7 +38,6 @@ public class OrderService {
             throw new OrderException("Cpf is invalid");
         }
 
-        order.setQuantity(order.getListProducts().size());
         if(isQuantityProductsIsNegative(order.getQuantity())){
             throw new OrderException("Products quantity can't is negative");
         }
