@@ -24,6 +24,11 @@ public class Order {
     private BigDecimal orderGrossValue;
     private Integer quantity;
 
+    private BigDecimal freight;
+
+    private String zipCodeTo;
+
+    private String zipCodeFrom;
 
     @OneToOne(cascade = CascadeType.ALL)
     private DiscountCoupon discountCoupon;
@@ -98,5 +103,29 @@ public class Order {
 
     public void setListProducts(List<Product> listProducts) {
         this.listProducts = listProducts;
+    }
+
+    public BigDecimal getFreight() {
+        return freight;
+    }
+
+    public void setFreight(BigDecimal freight) {
+        this.freight = freight;
+    }
+
+    public String getZipCodeTo() {
+        return zipCodeTo;
+    }
+
+    public void setZipCodeTo(String zipCodeTo) {
+        this.zipCodeTo = zipCodeTo;
+    }
+
+    public String getZipCodeFrom() {
+        return zipCodeFrom;
+    }
+
+    public void setZipCodeFrom(String zipCodeFrom) {
+        this.zipCodeFrom = zipCodeFrom;
     }
 }
