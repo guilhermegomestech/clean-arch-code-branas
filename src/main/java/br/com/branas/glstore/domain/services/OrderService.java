@@ -72,7 +72,20 @@ public class OrderService {
             order.setFreight(calculateFreight(order.getListProducts(), order.getQuantity()).setScale(2, RoundingMode.DOWN));
             order.setOrderGrossValue(order.getOrderGrossValue().add(order.getFreight()).setScale(2, RoundingMode.DOWN));
         }
+
         return this.orderRepository.save(order);
+    }
+
+    public BigDecimal calculateFreight(List<Product> productList, Integer quantity){
+        Double freight = 0.0;
+        for (Product product : productList){
+            Double volume = product.getProductWidth()/100 * product.getProductHeight()/100 * product.getProductLength()/100;
+            Double density = product.getProductWeight()/volume;
+            freight = 1000 * volume * (density/100);
+            freight += freight * quantity;
+        }
+
+        return new BigDecimal(freight);
     }
 
     public List<Order> getAllPedidos() {
