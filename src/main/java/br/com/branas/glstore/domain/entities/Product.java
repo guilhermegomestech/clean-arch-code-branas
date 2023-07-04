@@ -14,9 +14,9 @@ public class Product {
 
     private String productDescription;
     private BigDecimal productPrice;
-    private Integer productWidth;
-    private Integer productHeight;
-    private Integer productLength;
+    private Double productWidth;
+    private Double productHeight;
+    private Double productLength;
     private Double productWeight;
 
     public Product() {
@@ -43,27 +43,27 @@ public class Product {
         this.productPrice = precoProduto;
     }
 
-    public Integer getProductWidth() {
+    public Double getProductWidth() {
         return productWidth;
     }
 
-    public void setProductWidth(Integer productWidth) {
+    public void setProductWidth(Double productWidth) {
         this.productWidth = productWidth;
     }
 
-    public Integer getProductHeight() {
+    public Double getProductHeight() {
         return productHeight;
     }
 
-    public void setProductHeight(Integer productHeight) {
+    public void setProductHeight(Double productHeight) {
         this.productHeight = productHeight;
     }
 
-    public Integer getProductLength() {
+    public Double getProductLength() {
         return productLength;
     }
 
-    public void setProductLength(Integer productLength) {
+    public void setProductLength(Double productLength) {
         this.productLength = productLength;
     }
 

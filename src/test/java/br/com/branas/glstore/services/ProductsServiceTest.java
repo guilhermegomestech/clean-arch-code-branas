@@ -41,9 +41,9 @@ public class ProductsServiceTest {
     @Test
     public void testDimensionProductIsNegative(){
         Product productOne = new Product();
-        productOne.setProductHeight(-100);
-        productOne.setProductLength(-100);
-        productOne.setProductWidth(-100);
+        productOne.setProductHeight(-100.0);
+        productOne.setProductLength(-100.0);
+        productOne.setProductWidth(-100.0);
 
         assertTrue(productService.productHaveInvalidDimension(productOne), "The dimension is valid");
     }
