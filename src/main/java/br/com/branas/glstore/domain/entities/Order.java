@@ -3,6 +3,7 @@ package br.com.branas.glstore.domain.entities;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,6 +23,7 @@ public class Order {
     private String clientCpf;
 
     private BigDecimal orderGrossValue;
+
     private Integer quantity;
 
     private BigDecimal freight;
@@ -34,7 +36,7 @@ public class Order {
     private DiscountCoupon discountCoupon;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Product> listProducts;
+    private List<Product> listProducts = new ArrayList<>();
 
 
     public Long getIdOrder() {
@@ -82,7 +84,7 @@ public class Order {
     }
 
     public Integer getQuantity() {
-        return quantity;
+        return getListProducts().size();
     }
 
     public void setQuantity(Integer quantity) {
