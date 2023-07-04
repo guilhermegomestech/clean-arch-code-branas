@@ -18,10 +18,10 @@ public class ProductService {
     }
 
     private boolean validDimension(Double...dimensionArray){
-        return Arrays.stream(dimensionArray).anyMatch(dimension -> dimension < 0);
+        return Arrays.stream(dimensionArray).anyMatch(dimension -> dimension <= 0);
     }
 
     public boolean productHaveInvalidWeight(Product product){
-        return Double.compare(product.getProductWeight(), 0) < 0;
+        return Double.compare(product.getProductWeight(), 0) <= 0;
     }
 }
