@@ -35,7 +35,7 @@ jobs:
         uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          run: |
+          script: |
             const response = await github.repos.listBranches({
               owner: context.repo.owner,
               repo: context.repo.repo
@@ -43,7 +43,6 @@ jobs:
             
             branches=response.data.map(branch => branch.name);
             console.log("Branches: ", $branches);
-            echo "BRANCHES=$branches" >> "$GITHUB_OUTPUT"
       - name: Create Pull Requests
         run: |
           branches=$(echo "${{ steps.getBranches.outputs.BRANCHES }}" | tr ',' '\n')
