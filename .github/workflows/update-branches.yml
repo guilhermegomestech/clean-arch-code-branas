@@ -42,12 +42,12 @@ jobs:
             });
             
             const branches = response.data.map(branch => branch.name);
-            core.setOutput('branches', branches.join(','));
+            # core.setOutput('branches', branches.join(','));
             console.log("Branches: ", branches);
-            echo "image=$branches" >> $GITHUB_OUTPUT
+            echo BRANCHES=$branches >> "$GITHUB_OUTPUT"
       - name: Create Pull Requests
         run: |
-          branches=$(echo "${{ steps.getBranches.outputs.image }}" | tr ',' '\n')
+          branches=$(echo "${{ steps.getBranches.outputs.BRANCHES }}" | tr ',' '\n')
           for branch in $branches; do
             gh pr create --base main --head $branch --title "Atualização da branch $branch" --body "Essa é uma atualização automática da branch $branch."
           done
