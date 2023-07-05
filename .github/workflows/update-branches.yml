@@ -1,4 +1,4 @@
-name: Enviar Pull Request Automaticamente
+name: Envia Pull Request Automaticamente
 
 on:
   pull_request:
