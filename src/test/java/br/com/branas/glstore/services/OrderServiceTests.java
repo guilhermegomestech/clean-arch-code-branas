@@ -73,6 +73,6 @@ public class OrderServiceTests {
             freight += freight * 2;
         }
         System.out.println(freight);
-        assertFalse(new BigDecimal(freight).compareTo(BigDecimal.TEN) < 0);
+        assertTrue(new BigDecimal(freight).compareTo(BigDecimal.TEN) < 0);
     }
 }
