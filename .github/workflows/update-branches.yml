@@ -30,10 +30,9 @@ jobs:
           branch_name=${GITHUB_REF#refs/heads/}
           echo "Branch corrente: $branch_name"
           
-      - name: Install GH CLI
-        uses: dev-hanz-ops/install-gh-cli-action@v0.1.0
-        with:
-          gh-cli-version: 2.14.2 # optional, see action.yml for current default
+      - name: Install GitHub CLI
+        run: |
+          curl -fsSL https://cli.github.com/install.sh | sudo bash
     
       - name: Get Branches
         uses: actions/github-script@v4
