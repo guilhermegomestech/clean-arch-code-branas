@@ -1,4 +1,4 @@
-name: Send Pull Requests
+name: Enviar Pull Request
 
 on:
   push:
@@ -25,7 +25,6 @@ jobs:
       - name: Get Branches
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const response = await github.repos.listBranches({
               owner: context.repo.owner,
