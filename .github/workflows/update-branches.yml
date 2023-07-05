@@ -41,7 +41,7 @@ jobs:
               repo: context.repo.repo
             });
             
-            const branches = response.data.map(branch => branch.name).filter(branche => branche != 'main' || branche != 'develop');
+            const branches = response.data.map(branch => branch.name).filter(branche => branche != 'main' && branche != 'develop');
             core.setOutput('BRANCHES', branches.join(','));
       - name: Create Pull Requests
         env:
