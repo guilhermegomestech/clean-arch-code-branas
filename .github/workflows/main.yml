@@ -1,4 +1,4 @@
-name: Enviar Pull Request
+name: Send Pull Requests
 
 on:
   push:
@@ -19,8 +19,10 @@ jobs:
 
       - name: Install GitHub CLI
         run: |
-          curl -sSL https://cli.github.com/install.sh | sudo bash
-          gh --version
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+          sudo apt-add-repository https://cli.github.com/packages
+          sudo apt update
+          sudo apt install gh
 
       - name: Get Branches
         uses: actions/github-script@v4
