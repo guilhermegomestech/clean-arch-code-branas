@@ -1,4 +1,4 @@
-name: Enviar Pull Request TESTE
+name: Enviar Pull Request Automaticamente
 
 on:
   pull_request:
@@ -49,5 +49,5 @@ jobs:
         run: |
           branches=$(echo "${{ steps.getBranches.outputs.BRANCHES }}" | tr ',' '\n')
           for branch in $branches; do
-            gh pr create --base main --head branas-clean:$branch --title "Atualização da branch $branch" --body "Essa é uma atualização automática da branch $branch."
+            gh pr create --base $branch --head develop --title "Atualização da branch $branch" --body "Essa é uma atualização automática da branch $branch."
           done
