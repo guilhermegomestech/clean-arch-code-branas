@@ -1,4 +1,4 @@
-name: Envia Pull Request Automaticamente
+name: Enviar Pull Request Automaticamente
 
 on:
   pull_request:
@@ -30,7 +30,7 @@ jobs:
           branch_name=${GITHUB_REF#refs/heads/}
           echo "Branch corrente: $branch_name"
 
-      - name: Get Branches
+      - name: Get Branches Work of Repo
         id: getBranches
         uses: actions/github-script@v4
         with:
@@ -43,11 +43,12 @@ jobs:
             
             const branches = response.data.map(branch => branch.name).filter(branche => branche != 'main' && branche != 'develop');
             core.setOutput('BRANCHES', branches.join(','));
-      - name: Create Pull Requests
+            
+      - name: Create Pull Requests for Branches Work of Repo
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
           branches=$(echo "${{ steps.getBranches.outputs.BRANCHES }}" | tr ',' '\n')
           for branch in $branches; do
-            gh pr create --base $branch --head develop --title "Atualização da branch $branch" --body "Essa é uma atualização automática da branch $branch."
+            gh pr create --base $branch --head ${GITHUB_HEAD_REF} --title "Atualização da branch $branch" --body "Essa é uma atualização automática da branch $branch."
           done
