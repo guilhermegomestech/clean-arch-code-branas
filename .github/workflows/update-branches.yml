@@ -41,7 +41,6 @@ jobs:
               repo: context.repo.repo
             });
             
-            branches=response.data.map(branch => branch.name);
             core.setOutput('branches', response.data.map(branch => branch.name).join(','));
             console.log("Branches: ", $branches);
       - name: Create Pull Requests
