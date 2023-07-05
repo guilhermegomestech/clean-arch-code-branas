@@ -42,6 +42,8 @@ jobs:
             
             const branches = response.data.map(branch => branch.name);
             core.setOutput('branches', branches.join(','));
+            console.log(branches);
+            echo "Branch do PR: $branches";
             return branches;
       - name: Create Pull Requests
         run: |
