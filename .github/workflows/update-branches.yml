@@ -32,7 +32,13 @@ jobs:
           
       - name: Install GitHub CLI
         run: |
-          curl -fsSL https://cli.github.com/install.sh | sudo bash
+          OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+          ARCH=$(uname -m)
+          VERSION=<2.0.0>
+          curl -LO "https://github.com/cli/cli/releases/download/v${VERSION}/gh_${VERSION}_${OS}_${ARCH}.tar.gz"
+          tar xvf gh_${VERSION}_${OS}_${ARCH}.tar.gz
+          sudo mv gh_${VERSION}_${OS}_${ARCH}/gh /usr/local/bin/gh
+
     
       - name: Get Branches
         uses: actions/github-script@v4
