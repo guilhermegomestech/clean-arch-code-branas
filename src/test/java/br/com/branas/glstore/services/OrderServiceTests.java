@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.awt.font.FontRenderContext;
+import java.math.BigDecimal;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -47,5 +49,30 @@ public class OrderServiceTests {
     public void testValidateZipCodeNoHifen(){
         String zipCodeNoHifen = "16469";
         assertTrue(zipCodeNoHifen.matches(REGEX_ZIPCODE_VALIDATE));
+    }
+
+    @Test
+    public void testMinimumFreight(){
+        Product productOne = new Product();
+        productOne.setProductHeight(20.0);
+        productOne.setProductLength(18.0);
+        productOne.setProductWidth(15.0);
+        productOne.setProductWeight(2.0);
+
+        Product productTwo = new Product();
+        productTwo.setProductHeight(30.0);
+        productTwo.setProductLength(20.0);
+        productTwo.setProductWidth(10.0);
+        productTwo.setProductWeight(2.0);
+
+        Double freight = 0.0;
+        for (Product product : Arrays.asList(productOne, productTwo)){
+            Double volume = product.getProductWidth()/100 * product.getProductHeight()/100 * product.getProductLength()/100;
+            Double density = product.getProductWeight()/volume;
+            freight = 1000 * volume * (density/100);
+            freight += freight * 2;
+        }
+        System.out.println(freight);
+        assertFalse(new BigDecimal(freight).compareTo(BigDecimal.TEN) < 0);
     }
 }

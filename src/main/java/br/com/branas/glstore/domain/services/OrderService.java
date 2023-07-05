@@ -69,13 +69,13 @@ public class OrderService {
             throw new OrderException("The ZIP code is invalid or not provided.");
         } else {
             order.setFreight(calculateFreight(order.getListProducts(), order.getQuantity()).setScale(2, RoundingMode.DOWN));
-            order.setOrderGrossValue(order.getOrderGrossValue().add(order.getFreight()).setScale(2, RoundingMode.DOWN));
+            order.setOrderGrossValue(order.getOrderGrossValue().add(applyFreightMinimum(order.getFreight())).setScale(2, RoundingMode.DOWN));
         }
 
         return this.orderRepository.save(order);
     }
 
-    public BigDecimal calculateFreight(List<Product> productList, Integer quantity){
+    private BigDecimal calculateFreight(List<Product> productList, Integer quantity){
         Double freight = 0.0;
         for (Product product : productList){
             Double volume = product.getProductWidth()/100 * product.getProductHeight()/100 * product.getProductLength()/100;
@@ -87,11 +87,15 @@ public class OrderService {
         return new BigDecimal(freight);
     }
 
+    private BigDecimal applyFreightMinimum(BigDecimal freight){
+        return freight != null && freight.compareTo(BigDecimal.TEN) < 0 ? BigDecimal.TEN : freight;
+    }
+
     public List<Order> getAllPedidos() {
         return this.orderRepository.findAll();
     }
 
-    public BigDecimal calcularDescontoPedido(BigDecimal valorTotalPedido, BigDecimal valorDesconto) {
+    private BigDecimal calcularDescontoPedido(BigDecimal valorTotalPedido, BigDecimal valorDesconto) {
         return valorTotalPedido.subtract(valorTotalPedido.multiply(valorDesconto).divide(new BigDecimal(100)));
     }
 
