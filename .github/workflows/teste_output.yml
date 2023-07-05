@@ -5,7 +5,7 @@ on:
     types: 
       - closed
     branches:
-      - develop
+      - teste_hooks
 jobs:
   job1:
     runs-on: ubuntu-latest
