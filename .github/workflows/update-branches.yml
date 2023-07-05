@@ -41,7 +41,7 @@ jobs:
               repo: context.repo.repo
             });
             
-            core.setOutput('branches', response.data.map(branch => branch.name).join(','));
+             echo "branches=response.data.map(branch => branch.name).join(',')" >> "$GITHUB_OUTPUT"
             console.log("Branches: ", $branches);
       - name: Create Pull Requests
         run: |
