@@ -37,7 +37,8 @@ jobs:
           VERSION=<2.0.0>
           curl -LO "https://github.com/cli/cli/releases/download/v${VERSION}/gh_${VERSION}_${OS}_${ARCH}.tar.gz"
           tar xvf gh_${VERSION}_${OS}_${ARCH}.tar.gz
-          sudo mv gh_${VERSION}_${OS}_${ARCH}/gh /usr/local/bin/gh
+          sudo mv gh_${VERSION}_${OS}_${ARCH}/bin/gh /usr/local/bin/gh
+
 
     
       - name: Get Branches
