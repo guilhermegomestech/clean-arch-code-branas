@@ -35,7 +35,7 @@ jobs:
         uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
+          run: |
             const response = await github.repos.listBranches({
               owner: context.repo.owner,
               repo: context.repo.repo
