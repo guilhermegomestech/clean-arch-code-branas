@@ -47,7 +47,7 @@ jobs:
             echo "image=$branches" >> $GITHUB_OUTPUT
       - name: Create Pull Requests
         run: |
-          branches=$(echo "${{ steps.getBranches.outputs.branches }}" | tr ',' '\n')
+          branches=$(echo "${{ steps.getBranches.outputs.image }}" | tr ',' '\n')
           for branch in $branches; do
             gh pr create --base main --head $branch --title "Atualização da branch $branch" --body "Essa é uma atualização automática da branch $branch."
           done
