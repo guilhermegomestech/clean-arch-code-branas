@@ -44,7 +44,8 @@ jobs:
             core.setOutput('branches', branches.join(','));
             console.log("Branches: ", branches);
             branches=$(echo "${{ steps.GetBranches.outputs.branches }}" | tr ',' '\n');
-            for branch in branches; do
+            for branch in branches
+            do
               gh pr create --base main --head $branch --title "Atualização da branch $branch" --body "Essa é uma atualização automática da branch $branch."
             done
       - name: Create Pull Requests
