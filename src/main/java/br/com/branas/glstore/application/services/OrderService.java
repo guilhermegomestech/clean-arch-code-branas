@@ -71,6 +71,14 @@ public class OrderService {
             order.setOrderGrossValue(order.getOrderGrossValue().add(applyFreightMinimum(order.getFreight())).setScale(2, RoundingMode.DOWN));
         }
 
+
+        Long serialNumber = Long.valueOf(String.valueOf(LocalDate.now().getYear()).concat("00000000"));
+        if(getLastSerialNumberOrder() != null){
+            order.setSerialNumberOrder(getLastSerialNumberOrder() + 1l);
+        } else {
+            order.setSerialNumberOrder(serialNumber + 1l);
+        }
+
         return this.orderRepository.save(order);
     }
 
@@ -100,6 +108,10 @@ public class OrderService {
 
     public boolean isQuantityProductsIsNegative(Integer quantityProducts){
         return quantityProducts < 0;
+    }
+
+    private Long getLastSerialNumberOrder(){
+        return orderRepository.getLastSerialNumberOrder();
     }
 
     //TODO: MOVE NEXT METHODS FOR OTHER CLASS

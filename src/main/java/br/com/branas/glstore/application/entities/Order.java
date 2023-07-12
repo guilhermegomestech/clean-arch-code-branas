@@ -14,6 +14,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOrder;
     private String orderDescription;
+    private Long serialNumberOrder;
     private String clientName;
     private String addressClient;
     private String clientCpf;
@@ -119,5 +120,13 @@ public class Order {
 
     public void setZipCodeFrom(String zipCodeFrom) {
         this.zipCodeFrom = zipCodeFrom;
+    }
+
+    public Long getSerialNumberOrder() {
+        return serialNumberOrder;
+    }
+
+    public void setSerialNumberOrder(Long serialNumberOrder) {
+        this.serialNumberOrder = serialNumberOrder;
     }
 }
