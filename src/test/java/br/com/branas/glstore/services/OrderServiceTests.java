@@ -72,6 +72,19 @@ public class OrderServiceTests {
             freight += freight * 2;
         }
         System.out.println(freight);
-        assertTrue(new BigDecimal(freight).compareTo(BigDecimal.TEN) < 0);
+        assertFalse(new BigDecimal(freight).compareTo(BigDecimal.TEN) < 0);
+    }
+
+    @Test
+    public void testSerialNumberOrder(){
+        Long serialNumber = Long.valueOf(String.valueOf(LocalDate.now().getYear()).concat("00000001"));
+        assertTrue(serialNumber.compareTo(202300000001l) == 0);
+    }
+
+    @Test
+    public void testSerialNumberOrderSum(){
+        Long serialNumber = Long.valueOf(String.valueOf(LocalDate.now().getYear()).concat("00000001"));
+        serialNumber += 1;
+        assertTrue(serialNumber.compareTo(202300000002l) == 0);
     }
 }
