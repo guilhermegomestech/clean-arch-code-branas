@@ -1,15 +1,14 @@
 package br.com.branas.glstore.services;
 
-import br.com.branas.glstore.domain.entities.Order;
-import br.com.branas.glstore.domain.entities.Product;
-import br.com.branas.glstore.domain.services.OrderService;
+import br.com.branas.glstore.application.entities.Product;
+import br.com.branas.glstore.application.services.OrderService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.awt.font.FontRenderContext;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

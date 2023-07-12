@@ -1,4 +1,4 @@
-package br.com.branas.glstore.domain.entities;
+package br.com.branas.glstore.application.entities;
 
 import jakarta.persistence.*;
 
@@ -13,23 +13,14 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOrder;
-
     private String orderDescription;
-
     private String clientName;
-
     private String addressClient;
-
     private String clientCpf;
-
     private BigDecimal orderGrossValue;
-
     private Integer quantity;
-
     private BigDecimal freight;
-
     private String zipCodeTo;
-
     private String zipCodeFrom;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -37,7 +28,6 @@ public class Order {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Product> listProducts = new ArrayList<>();
-
 
     public Long getIdOrder() {
         return idOrder;
