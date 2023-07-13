@@ -50,5 +50,5 @@ jobs:
         run: |
           branches=$(echo "${{ steps.getBranches.outputs.BRANCHES }}" | tr ',' '\n')
           for branch in $branches; do
-            gh pr create --base $branch --head ${GITHUB_HEAD_REF} --title "Atualização da branch $branch" --body "Essa é uma atualização automática da branch $branch."
+            gh pr create --base $branch --head main --title "Atualização da branch $branch" --body "Essa é uma atualização automática da branch $branch."
           done
