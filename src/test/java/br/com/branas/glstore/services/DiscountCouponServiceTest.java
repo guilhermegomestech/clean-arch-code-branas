@@ -1,8 +1,7 @@
 package br.com.branas.glstore.services;
 
-import br.com.branas.glstore.domain.entities.DiscountCoupon;
-import br.com.branas.glstore.domain.services.DiscountCouponService;
-import br.com.branas.glstore.domain.services.OrderService;
+import br.com.branas.glstore.application.entities.DiscountCoupon;
+import br.com.branas.glstore.application.services.DiscountCouponService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

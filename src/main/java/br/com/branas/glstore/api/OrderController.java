@@ -1,7 +1,7 @@
 package br.com.branas.glstore.api;
 
-import br.com.branas.glstore.domain.entities.Order;
-import br.com.branas.glstore.domain.services.OrderService;
+import br.com.branas.glstore.application.entities.Order;
+import br.com.branas.glstore.application.services.OrderService;
 import br.com.branas.glstore.exceptions.OrderException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
