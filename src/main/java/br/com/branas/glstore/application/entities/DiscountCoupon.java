@@ -1,6 +1,5 @@
-package br.com.branas.glstore.domain.entities;
+package br.com.branas.glstore.application.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -17,9 +16,7 @@ public class DiscountCoupon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String couponCode;
-
     private BigDecimal discountPercentage;
-    
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate expirationDate;

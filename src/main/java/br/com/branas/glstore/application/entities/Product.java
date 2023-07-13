@@ -1,4 +1,4 @@
-package br.com.branas.glstore.domain.entities;
+package br.com.branas.glstore.application.entities;
 
 import jakarta.persistence.*;
 
@@ -11,7 +11,6 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProduct;
-
     private String productDescription;
     private BigDecimal productPrice;
     private Double productWidth;

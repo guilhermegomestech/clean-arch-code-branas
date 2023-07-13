@@ -1,17 +1,17 @@
-package br.com.branas.glstore.domain.services;
+package br.com.branas.glstore.application.services;
 
-import br.com.branas.glstore.domain.entities.DiscountCoupon;
-import br.com.branas.glstore.domain.entities.Order;
-import br.com.branas.glstore.domain.entities.Product;
+import br.com.branas.glstore.application.entities.Order;
+import br.com.branas.glstore.application.entities.Product;
 import br.com.branas.glstore.exceptions.OrderException;
 import br.com.branas.glstore.infrastructure.repositories.OrderRepository;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -59,8 +59,7 @@ public class OrderService {
         order.setOrderGrossValue(order.getListProducts().stream().map(Product::getProductPrice).reduce(BigDecimal.ZERO, BigDecimal::add));
 
         if(Objects.nonNull(order.getDiscountCoupon())){
-            boolean isCouponValid = discountCouponService.checkCouponIsValid(order.getDiscountCoupon());
-            if(isCouponValid){
+            if(discountCouponService.checkCouponIsValid(order.getDiscountCoupon())){
                 order.setOrderGrossValue(calcularDescontoPedido(order.getOrderGrossValue(), order.getDiscountCoupon().getDiscountPercentage()));
             }
         }
@@ -70,6 +69,14 @@ public class OrderService {
         } else {
             order.setFreight(calculateFreight(order.getListProducts(), order.getQuantity()).setScale(2, RoundingMode.DOWN));
             order.setOrderGrossValue(order.getOrderGrossValue().add(applyFreightMinimum(order.getFreight())).setScale(2, RoundingMode.DOWN));
+        }
+
+
+        Long serialNumber = Long.valueOf(String.valueOf(LocalDate.now().getYear()).concat("00000000"));
+        if(getLastSerialNumberOrder() != null){
+            order.setSerialNumberOrder(getLastSerialNumberOrder() + 1l);
+        } else {
+            order.setSerialNumberOrder(serialNumber + 1l);
         }
 
         return this.orderRepository.save(order);
@@ -101,6 +108,10 @@ public class OrderService {
 
     public boolean isQuantityProductsIsNegative(Integer quantityProducts){
         return quantityProducts < 0;
+    }
+
+    private Long getLastSerialNumberOrder(){
+        return orderRepository.getLastSerialNumberOrder();
     }
 
     //TODO: MOVE NEXT METHODS FOR OTHER CLASS
