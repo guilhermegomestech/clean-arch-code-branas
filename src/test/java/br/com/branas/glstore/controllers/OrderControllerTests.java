@@ -1,16 +1,14 @@
 package br.com.branas.glstore.controllers;
 
-import br.com.branas.glstore.domain.entities.DiscountCoupon;
-import br.com.branas.glstore.domain.entities.Order;
-import br.com.branas.glstore.domain.entities.Product;
-import br.com.branas.glstore.domain.services.OrderService;
+import br.com.branas.glstore.application.entities.DiscountCoupon;
+import br.com.branas.glstore.application.entities.Order;
+import br.com.branas.glstore.application.entities.Product;
+import br.com.branas.glstore.application.services.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,7 +21,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
@@ -32,8 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-//@SpringBootTest
-// (webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) //cria uma porta de forma randomica
 @WebMvcTest
 @ExtendWith(MockitoExtension.class)
 public class OrderControllerTests {
@@ -82,8 +77,6 @@ public class OrderControllerTests {
                         .content(requestJson))
                 .andExpect(status().isOk());
 
-//        given(orderService.getAllPedidos()).willReturn(new ArrayList<>());
-//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/pedido")).andDo(print()).andExpect(status().isNoContent());
     }
     @Test
     public void testCreateOrderCpfInvalid() throws Exception {

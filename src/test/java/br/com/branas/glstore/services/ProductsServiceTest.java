@@ -1,7 +1,7 @@
 package br.com.branas.glstore.services;
 
-import br.com.branas.glstore.domain.entities.Product;
-import br.com.branas.glstore.domain.services.ProductService;
+import br.com.branas.glstore.application.entities.Product;
+import br.com.branas.glstore.application.services.ProductService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
