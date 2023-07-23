@@ -1,7 +1,8 @@
 package br.com.branas.glstore.services;
 
-import br.com.branas.glstore.application.entities.Product;
-import br.com.branas.glstore.application.services.OrderService;
+import br.com.branas.glstore.domain.entities.Product;
+import br.com.branas.glstore.domain.services.OrderService;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -83,8 +84,8 @@ public class OrderServiceTests {
 
     @Test
     public void testSerialNumberOrderSum(){
-        Long serialNumber = Long.valueOf(String.valueOf(LocalDate.now().getYear()).concat("00000001"));
+        Long serialNumber = Long.valueOf(String.valueOf(LocalDate.now().getYear()).concat(StringUtils.leftPad("0", 8, "0")));
         serialNumber += 1;
-        assertTrue(serialNumber.compareTo(202300000002l) == 0);
+        assertTrue(serialNumber.compareTo(202300000001l) == 0);
     }
 }

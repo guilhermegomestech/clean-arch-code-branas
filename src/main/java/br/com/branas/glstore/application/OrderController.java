@@ -1,14 +1,14 @@
-package br.com.branas.glstore.api;
+package br.com.branas.glstore.application.api;
 
-import br.com.branas.glstore.application.entities.Order;
-import br.com.branas.glstore.application.services.OrderService;
-import br.com.branas.glstore.exceptions.OrderException;
+import br.com.branas.glstore.domain.entities.Order;
+import br.com.branas.glstore.domain.services.OrderService;
+import br.com.branas.glstore.infrastructure.exceptions.OrderException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+//Boundary
 @RestController
 @RequestMapping("api/v1/pedido")
 public class OrderController {

@@ -4,8 +4,7 @@ import br.com.branas.glstore.application.entities.Order;
 import br.com.branas.glstore.application.entities.Product;
 import br.com.branas.glstore.exceptions.OrderException;
 import br.com.branas.glstore.infrastructure.repositories.OrderRepository;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import io.micrometer.common.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +15,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static java.lang.Integer.parseInt;
-
+//Control
 @Service
 public class OrderService {
 
+    private static final String ZERO = "0";
     private static final String REGEX_ZIPCODE_VALIDATE = "^\\d{5}(-\\d{4})?$";
     private OrderRepository orderRepository;
     private DiscountCouponService discountCouponService;
@@ -72,7 +71,7 @@ public class OrderService {
         }
 
 
-        Long serialNumber = Long.valueOf(String.valueOf(LocalDate.now().getYear()).concat("00000000"));
+        Long serialNumber = Long.valueOf(String.valueOf(LocalDate.now().getYear()).concat(StringUtils.leftPad(ZERO, 8, ZERO)));
         if(getLastSerialNumberOrder() != null){
             order.setSerialNumberOrder(getLastSerialNumberOrder() + 1l);
         } else {
