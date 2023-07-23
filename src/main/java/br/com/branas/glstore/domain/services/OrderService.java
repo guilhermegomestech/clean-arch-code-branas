@@ -1,8 +1,8 @@
-package br.com.branas.glstore.application.services;
+package br.com.branas.glstore.domain.services;
 
-import br.com.branas.glstore.application.entities.Order;
-import br.com.branas.glstore.application.entities.Product;
-import br.com.branas.glstore.exceptions.OrderException;
+import br.com.branas.glstore.domain.entities.Order;
+import br.com.branas.glstore.domain.entities.Product;
+import br.com.branas.glstore.infrastructure.exceptions.OrderException;
 import br.com.branas.glstore.infrastructure.repositories.OrderRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,10 +97,6 @@ public class OrderService {
         return freight != null && freight.compareTo(BigDecimal.TEN) < 0 ? BigDecimal.TEN : freight;
     }
 
-    public List<Order> getAllPedidos() {
-        return this.orderRepository.findAll();
-    }
-
     private BigDecimal calcularDescontoPedido(BigDecimal valorTotalPedido, BigDecimal valorDesconto) {
         return valorTotalPedido.subtract(valorTotalPedido.multiply(valorDesconto).divide(new BigDecimal(100)));
     }
@@ -156,5 +152,13 @@ public class OrderService {
     private boolean allDigitsTheSame(String cpf) {
         String[] cpfArray = cpf.split("");
         return !Arrays.stream(cpfArray).allMatch(c -> c.equalsIgnoreCase(cpfArray[0]));
+    }
+
+    public List<Order> getAllPedidos() {
+        return this.orderRepository.findAll();
+    }
+
+    public Order getOrderBySerialNumberOrder(Long serialNumber){
+        return this.orderRepository.findBySerialNumberOrderEquals(serialNumber);
     }
 }
