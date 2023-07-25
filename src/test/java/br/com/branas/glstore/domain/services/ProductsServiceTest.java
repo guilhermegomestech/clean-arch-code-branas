@@ -1,4 +1,4 @@
-package br.com.branas.glstore.infrastructure;
+package br.com.branas.glstore.domain.services;
 
 import br.com.branas.glstore.domain.entities.Product;
 import br.com.branas.glstore.domain.services.ProductService;
