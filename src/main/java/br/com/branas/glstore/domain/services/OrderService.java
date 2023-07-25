@@ -20,7 +20,6 @@ import java.util.Objects;
 public class OrderService {
 
     private static final String ZERO = "0";
-    private static final String REGEX_ZIPCODE_VALIDATE = "^\\d{5}(-\\d{4})?$";
     private OrderRepository orderRepository;
     private DiscountCouponService discountCouponService;
     private ProductService productService;
@@ -63,8 +62,8 @@ public class OrderService {
             }
         }
 
-        if(validateZipCode(order.getZipCodeFrom()) || validateZipCode(order.getZipCodeTo())){
-            throw new OrderException("The ZIP code is invalid or not provided.");
+        if(order.getZipCode().zipCodeIsNotValid()){
+            throw new OrderException("The ZIP code is invalid.");
         } else {
             order.setFreight(calculateFreight(order.getListProducts(), order.getQuantity()).setScale(2, RoundingMode.DOWN));
             order.setOrderGrossValue(order.getOrderGrossValue().add(applyFreightMinimum(order.getFreight())).setScale(2, RoundingMode.DOWN));
@@ -110,11 +109,6 @@ public class OrderService {
     }
 
     //TODO: MOVE NEXT METHODS FOR OTHER CLASS
-
-    private boolean validateZipCode(String zipCode){
-        return StringUtils.isEmpty(zipCode) || !zipCode.matches(REGEX_ZIPCODE_VALIDATE);
-    }
-
 
     public boolean validateCpf(String cpf) {
         cpf = removeNonDigits(cpf);

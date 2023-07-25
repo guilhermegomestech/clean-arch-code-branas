@@ -1,5 +1,6 @@
 package br.com.branas.glstore.domain.entities;
 
+import br.com.branas.glstore.domain.vo.ZipCodeVO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.hateoas.RepresentationModel;
@@ -23,8 +24,11 @@ public class Order extends RepresentationModel<Order> {
     private BigDecimal orderGrossValue;
     private Integer quantity;
     private BigDecimal freight;
-    private String zipCodeTo;
-    private String zipCodeFrom;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "codeFrom", column = @Column(name = "code_from")),
+            @AttributeOverride(name = "codeTo", column = @Column(name = "code_To"))})
+    private ZipCodeVO zipCode;
 
     @OneToOne(cascade = CascadeType.ALL)
     private DiscountCoupon discountCoupon;
@@ -108,27 +112,19 @@ public class Order extends RepresentationModel<Order> {
         this.freight = freight;
     }
 
-    public String getZipCodeTo() {
-        return zipCodeTo;
-    }
-
-    public void setZipCodeTo(String zipCodeTo) {
-        this.zipCodeTo = zipCodeTo;
-    }
-
-    public String getZipCodeFrom() {
-        return zipCodeFrom;
-    }
-
-    public void setZipCodeFrom(String zipCodeFrom) {
-        this.zipCodeFrom = zipCodeFrom;
-    }
-
     public Long getSerialNumberOrder() {
         return serialNumberOrder;
     }
 
     public void setSerialNumberOrder(Long serialNumberOrder) {
         this.serialNumberOrder = serialNumberOrder;
+    }
+
+    public ZipCodeVO getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(ZipCodeVO zipCode) {
+        this.zipCode = zipCode;
     }
 }
