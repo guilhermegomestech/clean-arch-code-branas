@@ -9,7 +9,7 @@ import java.util.Objects;
 @Embeddable
 public class ZipCodeVO {
 
-    private static final String REGEX_ZIPCODE_VALIDATE = "^\\d{5}(-\\d{4})?$";
+    private static final String REGEX_ZIPCODE_VALIDATE = "^\\d{5}[-]\\d{3}$";
 
     private String codeFrom;
     private String codeTo;

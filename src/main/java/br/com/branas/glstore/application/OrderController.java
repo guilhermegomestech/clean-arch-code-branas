@@ -74,5 +74,6 @@ public class OrderController {
         order.add(linkTo(OrderController.class).slash(order).withSelfRel());
         return ResponseEntity.ok(order);
     }
+
 }
 

@@ -13,18 +13,18 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class ZipCodeVOTest {
 
-    private static final String REGEX_ZIPCODE_VALIDATE = "^\\d{5}(-\\d{4})?$";
+    private static final String REGEX_ZIPCODE_VALIDATE = "^\\d{5}[-]\\d{3}$";
 
     @Test
     public void testEqualsZipCode(){
-        ZipCodeVO zipCodeOne = new ZipCodeVO("46444-4111", "46949-4441");
-        ZipCodeVO zipCodeTwo = new ZipCodeVO("46444-4111", "46949-4441");
+        ZipCodeVO zipCodeOne = new ZipCodeVO("46444-411", "46949-444");
+        ZipCodeVO zipCodeTwo = new ZipCodeVO("46444-411", "46949-444");
         assertTrue(zipCodeOne.equals(zipCodeTwo));
     }
 
     @Test
     public void testZiCodeIsNotValid(){
-        ZipCodeVO zipCodeVO = new ZipCodeVO("46444-4111", "46949-4441");
+        ZipCodeVO zipCodeVO = new ZipCodeVO("46444410", "46949401");
         assertTrue(zipCodeVO.zipCodeIsNotValid());
     }
 
