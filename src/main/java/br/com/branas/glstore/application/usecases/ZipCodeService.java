@@ -1,4 +1,4 @@
-package br.com.branas.glstore.domain.services;
+package br.com.branas.glstore.application.usecases;
 
 import br.com.branas.glstore.domain.entities.ZipCode;
 import br.com.branas.glstore.infrastructure.repositories.ZipCodeRepository;

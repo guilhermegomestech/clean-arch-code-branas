@@ -1,7 +1,7 @@
 package br.com.branas.glstore.domain.services;
 
 import br.com.branas.glstore.domain.entities.Product;
-import br.com.branas.glstore.domain.services.OrderService;
+import br.com.branas.glstore.application.usecases.OrderService;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

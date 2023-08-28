@@ -1,5 +1,6 @@
 package br.com.branas.glstore.domain.services;
 
+import br.com.branas.glstore.application.usecases.DistanceCalculatorService;
 import br.com.branas.glstore.domain.vo.CoordinateVO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,7 +1,7 @@
-package br.com.branas.glstore.application;
+package br.com.branas.glstore.application.gateway;
 
 import br.com.branas.glstore.domain.entities.ZipCode;
-import br.com.branas.glstore.domain.services.ZipCodeService;
+import br.com.branas.glstore.application.usecases.ZipCodeService;
 import br.com.branas.glstore.infrastructure.exceptions.OrderException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

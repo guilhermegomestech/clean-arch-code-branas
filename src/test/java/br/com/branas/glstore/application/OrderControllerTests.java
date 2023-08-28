@@ -3,7 +3,7 @@ package br.com.branas.glstore.application;
 import br.com.branas.glstore.domain.entities.DiscountCoupon;
 import br.com.branas.glstore.domain.entities.Order;
 import br.com.branas.glstore.domain.entities.Product;
-import br.com.branas.glstore.domain.services.OrderService;
+import br.com.branas.glstore.application.usecases.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;

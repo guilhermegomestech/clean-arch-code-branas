@@ -1,7 +1,7 @@
-package br.com.branas.glstore.application;
+package br.com.branas.glstore.application.gateway;
 
 import br.com.branas.glstore.domain.entities.Order;
-import br.com.branas.glstore.domain.services.OrderService;
+import br.com.branas.glstore.application.usecases.OrderService;
 import br.com.branas.glstore.infrastructure.exceptions.OrderException;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
