@@ -1,4 +1,4 @@
-package br.com.branas.glstore.exceptions;
+package br.com.branas.glstore.infrastructure.exceptions;
 
 public class OrderException extends RuntimeException{
     public OrderException() {}
