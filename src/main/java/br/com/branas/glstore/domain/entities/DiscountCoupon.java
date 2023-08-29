@@ -1,4 +1,4 @@
-package br.com.branas.glstore.application.entities;
+package br.com.branas.glstore.domain.entities;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

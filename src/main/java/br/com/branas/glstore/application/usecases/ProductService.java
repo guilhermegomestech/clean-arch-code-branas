@@ -1,11 +1,12 @@
-package br.com.branas.glstore.application.services;
+package br.com.branas.glstore.application.usecases;
 
-import br.com.branas.glstore.application.entities.Product;
+import br.com.branas.glstore.domain.entities.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 
+//Control
 @Service
 public class ProductService {
 

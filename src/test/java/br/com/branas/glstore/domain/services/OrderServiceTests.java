@@ -1,7 +1,8 @@
-package br.com.branas.glstore.services;
+package br.com.branas.glstore.domain.services;
 
-import br.com.branas.glstore.application.entities.Product;
-import br.com.branas.glstore.application.services.OrderService;
+import br.com.branas.glstore.domain.entities.Product;
+import br.com.branas.glstore.application.usecases.OrderService;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,8 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceTests {
-
-    private static final String REGEX_ZIPCODE_VALIDATE = "^\\d{5}(-\\d{4})?$";
 
     @InjectMocks
     private OrderService orderService;
@@ -36,18 +35,6 @@ public class OrderServiceTests {
     @Test
     public void testOrderIsNotNegative(){
         assertTrue(orderService.isQuantityProductsIsNegative(-1));
-    }
-
-    @Test
-    public void testValidateZipCodeHifen(){
-        String zipCodeHifen = "15456-7844";
-        assertTrue(zipCodeHifen.matches(REGEX_ZIPCODE_VALIDATE));
-    }
-
-    @Test
-    public void testValidateZipCodeNoHifen(){
-        String zipCodeNoHifen = "16469";
-        assertTrue(zipCodeNoHifen.matches(REGEX_ZIPCODE_VALIDATE));
     }
 
     @Test
@@ -83,8 +70,8 @@ public class OrderServiceTests {
 
     @Test
     public void testSerialNumberOrderSum(){
-        Long serialNumber = Long.valueOf(String.valueOf(LocalDate.now().getYear()).concat("00000001"));
+        Long serialNumber = Long.valueOf(String.valueOf(LocalDate.now().getYear()).concat(StringUtils.leftPad("0", 8, "0")));
         serialNumber += 1;
-        assertTrue(serialNumber.compareTo(202300000002l) == 0);
+        assertTrue(serialNumber.compareTo(202300000001l) == 0);
     }
 }
